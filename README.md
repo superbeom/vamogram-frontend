@@ -1,6 +1,6 @@
 # Vamogram Frontend
 
-- [ ] Router
+- [x] Router
 - [ ] Authentication
 - [ ] Architecture
 - [ ] Styles
