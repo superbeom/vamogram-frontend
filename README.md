@@ -2,5 +2,5 @@
 
 - [x] Router
 - [x] Authentication
-- [ ] Architecture
+- [x] Architecture
 - [ ] Styles

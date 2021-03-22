@@ -1,10 +1,10 @@
-export default ({ setIsLoggedIn }) => {
+import { isLoggedInVar } from "../apollo";
+
+export default () => {
   return (
     <div>
       <h1>Home</h1>
-      <button onClick={() => setIsLoggedIn((curIsLoggedIn) => !curIsLoggedIn)}>
-        Logout
-      </button>
+      <button onClick={() => isLoggedInVar(false)}>Logout</button>
     </div>
   );
 };
