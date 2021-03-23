@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButton = styled.input`
+export default styled.input`
   width: 100%;
   border: none;
   border-radius: 3px;
@@ -11,5 +11,3 @@ const StyledButton = styled.input`
   padding: 8px 0px;
   font-weight: 600;
 `;
-
-export default (props) => <StyledButton {...props} />;
