@@ -5,8 +5,7 @@ export default styled.input`
   border: none;
   border-radius: 3px;
   margin-top: 12px;
-  background-color: ${(props) =>
-    props.disabled ? props.theme.borderColor : props.theme.accent};
+  background-color: ${(props) => props.theme.accent};
   color: white;
   text-align: center;
   padding: 8px 0px;
