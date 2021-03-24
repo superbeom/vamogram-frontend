@@ -62,7 +62,7 @@ export default () => {
   };
 
   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: onCompleted,
+    onCompleted,
   });
 
   const onSubmitValid = async ({ username, password }) => {
