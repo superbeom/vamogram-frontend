@@ -42,9 +42,11 @@ const Button = styled.span`
 
 export default () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-  const loggedInUser = useUser();
+  const { data: loggedInUser, loading } = useUser();
 
-  console.log("loggedInUser: ", loggedInUser);
+  if (!loading) {
+    console.log("loggedInUser: ", loggedInUser);
+  }
 
   return (
     <StyledHeader>
