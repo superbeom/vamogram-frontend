@@ -12,8 +12,10 @@ const Img = styled.img`
   max-width: 100%;
 `;
 
-export default ({ url }) => (
+const Avatar = ({ url }) => (
   <StyledAvatar>
     <Img src={url} />
   </StyledAvatar>
 );
+
+export default Avatar;

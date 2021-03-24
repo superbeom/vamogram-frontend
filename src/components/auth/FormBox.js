@@ -18,4 +18,6 @@ const Container = styled(BaseBox)`
   }
 `;
 
-export default ({ children }) => <Container>{children}</Container>;
+const FormBox = ({ children }) => <Container>{children}</Container>;
+
+export default FormBox;

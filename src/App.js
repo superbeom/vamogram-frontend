@@ -11,7 +11,7 @@ import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import NotFound from "./screens/NotFound";
 
-export default () => {
+const App = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const darkMode = useReactiveVar(darkModeVar);
 
@@ -46,3 +46,5 @@ export default () => {
     </ApolloProvider>
   );
 };
+
+export default App;

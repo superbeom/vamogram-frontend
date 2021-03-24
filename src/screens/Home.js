@@ -37,7 +37,7 @@ const Username = styled(FatText)`
   margin-left: 5px;
 `;
 
-export default () => {
+const Home = () => {
   const { data } = useQuery(FEED_QUERY);
   console.log(data);
 
@@ -54,3 +54,5 @@ export default () => {
     </div>
   );
 };
+
+export default Home;

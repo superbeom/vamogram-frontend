@@ -47,7 +47,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
   }
 `;
 
-export default () => {
+const SignUp = () => {
   const history = useHistory();
   const {
     register,
@@ -179,3 +179,5 @@ export default () => {
     </AuthLayout>
   );
 };
+
+export default SignUp;

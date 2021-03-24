@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.input`
+const Button = styled.input`
   width: 100%;
   border: none;
   border-radius: 3px;
@@ -12,3 +12,5 @@ export default styled.input`
   font-weight: 600;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
+
+export default Button;

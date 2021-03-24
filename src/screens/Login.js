@@ -40,7 +40,7 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default () => {
+const Login = () => {
   const location = useLocation();
   const {
     register,
@@ -146,3 +146,5 @@ export default () => {
     </AuthLayout>
   );
 };
+
+export default Login;

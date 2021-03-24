@@ -8,9 +8,11 @@ const Content = styled.main`
   margin-top: 45px;
 `;
 
-export default ({ children }) => (
+const Layout = ({ children }) => (
   <>
     <Header />
     <Content>{children}</Content>
   </>
 );
+
+export default Layout;

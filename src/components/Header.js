@@ -46,7 +46,7 @@ const Button = styled.span`
   font-weight: 600;
 `;
 
-export default () => {
+const Header = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data: loggedInUser } = useUser();
 
@@ -79,3 +79,5 @@ export default () => {
     </StyledHeader>
   );
 };
+
+export default Header;

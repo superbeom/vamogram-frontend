@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.input`
+const Input = styled.input`
   width: 100%;
   border-radius: 3px;
   padding: 7px;
@@ -16,3 +16,5 @@ export default styled.input`
     border-color: ${(props) => (props.hasError ? "tomato" : "rgb(38, 38, 38)")};
   }
 `;
+
+export default Input;

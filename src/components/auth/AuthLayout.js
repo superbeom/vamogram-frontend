@@ -25,7 +25,7 @@ const DarkModeButton = styled.span`
   cursor: pointer;
 `;
 
-export default ({ children }) => {
+const AuthLayout = ({ children }) => {
   const darkMode = useReactiveVar(darkModeVar);
 
   return (
@@ -39,3 +39,5 @@ export default ({ children }) => {
     </Container>
   );
 };
+
+export default AuthLayout;
