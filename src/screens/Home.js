@@ -6,6 +6,7 @@ import {
   faHeart,
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faFullHeart } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import Avatar from "../components/Avatar";
 import { FatText } from "../components/shared";
@@ -24,6 +25,7 @@ const FEED_QUERY = gql`
       comments
       createdAt
       isMine
+      isLiked
     }
   }
 `;
@@ -62,6 +64,9 @@ const PhotoActions = styled.div`
     display: flex;
     align-items: center;
   }
+  svg {
+    font-size: 20px;
+  }
 `;
 
 const PhotoAction = styled.div`
@@ -90,7 +95,11 @@ const Home = () => {
             <PhotoActions>
               <div>
                 <PhotoAction>
-                  <FontAwesomeIcon icon={faHeart} size={"2x"} />
+                  <FontAwesomeIcon
+                    style={{ color: photo.isLiked ? "tomato" : "inherit" }}
+                    icon={photo.isLiked ? faFullHeart : faHeart}
+                    size={"2x"}
+                  />
                 </PhotoAction>
                 <PhotoAction>
                   <FontAwesomeIcon icon={faComment} size={"2x"} />
