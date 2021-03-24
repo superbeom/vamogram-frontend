@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +26,10 @@ const FacebookLogin = styled.div`
   }
 `;
 
+const Notification = styled.div`
+  color: #2ecc71;
+`;
+
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -36,6 +41,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default () => {
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -45,6 +51,10 @@ export default () => {
     clearErrors,
   } = useForm({
     mode: "onChange",
+    defaultValues: {
+      username: location?.state?.username,
+      password: location?.state?.password,
+    },
   });
 
   const onCompleted = (data) => {
@@ -90,6 +100,7 @@ export default () => {
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
         <form onSubmit={handleSubmit(onSubmitValid)}>
+          <Notification>{location?.state?.message}</Notification>
           <Input
             ref={register({
               required: "Username is required.",

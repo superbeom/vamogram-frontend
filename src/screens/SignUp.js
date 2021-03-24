@@ -56,11 +56,13 @@ export default () => {
     formState,
     setError,
     clearErrors,
+    getValues,
   } = useForm({
     mode: "onChange",
   });
 
   const onCompleted = (data) => {
+    const { username, password } = getValues();
     const {
       createAccount: { ok, error },
     } = data;
@@ -69,7 +71,12 @@ export default () => {
       return setError("result", { message: error });
     }
 
-    history.push(routes.home);
+    /* createAccount를 성공적으로 실행하면, home으로 redirect */
+    history.push(routes.home, {
+      message: "Account created. Please log in.",
+      username,
+      password,
+    });
   };
 
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
