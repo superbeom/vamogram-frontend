@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles, darkTheme, lightTheme } from "./styles";
 import { isLoggedInVar, darkModeVar, client } from "./apollo";
 import routes from "./routes";
+import Layout from "./components/Layout";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
@@ -22,7 +23,13 @@ export default () => {
           <Router>
             <Switch>
               <Route path={routes.home} exact>
-                {isLoggedIn ? <Home /> : <Login />}
+                {isLoggedIn ? (
+                  <Layout>
+                    <Home />
+                  </Layout>
+                ) : (
+                  <Login />
+                )}
               </Route>
               {!isLoggedIn ? (
                 <Route path={routes.signUp}>
