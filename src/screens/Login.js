@@ -5,6 +5,7 @@ import {
   faFacebookSquare,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { logUserIn } from "../apollo";
 import routes from "../routes";
 import AuthLayout from "../components/auth/AuthLayout";
 import FormBox from "../components/auth/FormBox";
@@ -35,7 +36,14 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default () => {
-  const { register, handleSubmit, errors, formState, setError } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    formState,
+    setError,
+    clearErrors,
+  } = useForm({
     mode: "onChange",
   });
 
@@ -45,7 +53,11 @@ export default () => {
     } = data;
 
     if (!ok) {
-      setError("result", { message: error });
+      return setError("result", { message: error });
+    }
+
+    if (token) {
+      logUserIn(token);
     }
   };
 
@@ -66,6 +78,10 @@ export default () => {
     }
   };
 
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
   return (
     <AuthLayout>
       <PageTitle title={"Login"} />
@@ -82,6 +98,7 @@ export default () => {
                 message: "Username should be longer than 5 characters",
               },
             })}
+            onChange={clearLoginError}
             name="username"
             type="text"
             placeholder="Username"
@@ -90,6 +107,7 @@ export default () => {
           <FormError message={errors?.username?.message} />
           <Input
             ref={register({ required: "Password is required." })}
+            onChange={clearLoginError}
             name="password"
             type="password"
             placeholder="Password"
