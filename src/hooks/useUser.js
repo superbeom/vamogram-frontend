@@ -13,7 +13,7 @@ const ME_QUERY = gql`
 
 export default () => {
   const hasToken = useReactiveVar(isLoggedInVar);
-  const { data, error, loading } = useQuery(ME_QUERY, {
+  const { data } = useQuery(ME_QUERY, {
     skip: !hasToken,
   });
 
@@ -23,5 +23,5 @@ export default () => {
     }
   }, [data]);
 
-  return { data, loading };
+  return { data };
 };
