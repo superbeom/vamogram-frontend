@@ -61,6 +61,24 @@ const Likes = styled(FatText)`
   margin-top: 15px;
 `;
 
+const Comments = styled.div`
+  margin-top: 20px;
+`;
+
+const Comment = styled.div``;
+
+const CommentCaption = styled.span`
+  margin-left: 10px;
+`;
+
+const CommentCount = styled.span`
+  display: block;
+  margin: 10px 0px;
+  opacity: 0.7;
+  font-size: 10px;
+  font-weight: 600;
+`;
+
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
     toggleLike(id: $id) {
@@ -70,7 +88,16 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `;
 
-const Photo = ({ id, user, file, likes, isLiked }) => {
+const Photo = ({
+  id,
+  user,
+  file,
+  caption,
+  likes,
+  comments,
+  commentNumber,
+  isLiked,
+}) => {
   const updateToggleLike = (cache, result) => {
     const {
       data: {
@@ -145,6 +172,26 @@ const Photo = ({ id, user, file, likes, isLiked }) => {
           </div>
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
+        <Comments>
+          <Comment>
+            <FatText>{user.username}</FatText>
+            <CommentCaption>{caption}</CommentCaption>
+          </Comment>
+        </Comments>
+        <CommentCount>
+          {commentNumber > 0
+            ? commentNumber === 1
+              ? "1 comment"
+              : `${commentNumber} comments`
+            : null}
+        </CommentCount>
+        {comments.map((comment) => (
+          <div key={comment.id}>
+            <Avatar url={comment.user.avatar} lg />
+            <FatText>{comment.user.username}</FatText>
+            <span>{comment.payload}</span>
+          </div>
+        ))}
       </PhotoData>
     </PhotoContainer>
   );
@@ -157,7 +204,21 @@ Photo.propTypes = {
     avatar: PropTypes.string,
   }),
   file: PropTypes.string.isRequired,
+  caption: PropTypes.string,
   likes: PropTypes.number.isRequired,
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      user: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.string,
+      }),
+      payload: PropTypes.string.isRequired,
+      isMine: PropTypes.bool.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })
+  ),
+  commentNumber: PropTypes.number.isRequired,
   isLiked: PropTypes.bool.isRequired,
 };
 
