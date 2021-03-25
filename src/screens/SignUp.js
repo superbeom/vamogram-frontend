@@ -79,9 +79,12 @@ const SignUp = () => {
     });
   };
 
-  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
-    onCompleted,
-  });
+  const [createAccountMutation, { loading }] = useMutation(
+    CREATE_ACCOUNT_MUTATION,
+    {
+      onCompleted,
+    }
+  );
 
   const onSubmitValid = async ({
     firstName,
@@ -94,7 +97,7 @@ const SignUp = () => {
       return;
     }
 
-    createAccount({
+    createAccountMutation({
       variables: {
         firstName,
         lastName,

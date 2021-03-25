@@ -71,7 +71,7 @@ const Login = () => {
     }
   };
 
-  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+  const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted,
   });
 
@@ -79,7 +79,7 @@ const Login = () => {
     if (loading) {
       return;
     } else {
-      login({
+      loginMutation({
         variables: {
           username,
           password,
