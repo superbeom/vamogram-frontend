@@ -107,15 +107,12 @@ const Photo = ({ id, user, file, likes, isLiked }) => {
     }
   };
 
-  const [toggleLikeMutation, { data, loading }] = useMutation(
-    TOGGLE_LIKE_MUTATION,
-    {
-      variables: {
-        id,
-      },
-      update: updateToggleLike,
-    }
-  );
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateToggleLike,
+  });
 
   return (
     <PhotoContainer>
