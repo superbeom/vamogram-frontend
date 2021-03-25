@@ -77,18 +77,33 @@ const Photo = ({ id, user, file, likes, isLiked }) => {
         toggleLike: { ok },
       },
     } = result;
+
     if (ok) {
-      cache.writeFragment({
-        id: `Photo:${id}`,
-        fragment: gql`
-          fragment BSName on Photo {
-            isLiked
-          }
-        `,
-        data: {
-          isLiked: !isLiked,
-        },
+      const fragmentId = `Photo:${id}`;
+      const fragment = gql`
+        fragment BSName on Photo {
+          likes
+          isLiked
+        }
+      `;
+
+      const readCache = cache.readFragment({
+        id: fragmentId,
+        fragment,
       });
+
+      if ("likes" in readCache && "isLiked" in readCache) {
+        const { likes: cacheLikes, isLiked: cacheIsLiked } = readCache;
+
+        cache.writeFragment({
+          id: fragmentId,
+          fragment,
+          data: {
+            likes: cacheIsLiked ? cacheLikes - 1 : cacheLikes + 1,
+            isLiked: !cacheIsLiked,
+          },
+        });
+      }
     }
   };
 
