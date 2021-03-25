@@ -11,6 +11,7 @@ import {
 import { faHeart as faFullHeart } from "@fortawesome/free-solid-svg-icons";
 import { FatText } from "../shared";
 import Avatar from "../Avatar";
+import Comments from "./Comments";
 
 const PhotoContainer = styled.div`
   max-width: 615px;
@@ -59,24 +60,6 @@ const PhotoAction = styled.div`
 const Likes = styled(FatText)`
   display: block;
   margin-top: 15px;
-`;
-
-const Comments = styled.div`
-  margin-top: 20px;
-`;
-
-const Comment = styled.div``;
-
-const CommentCaption = styled.span`
-  margin-left: 10px;
-`;
-
-const CommentCount = styled.span`
-  display: block;
-  margin: 10px 0px;
-  opacity: 0.7;
-  font-size: 10px;
-  font-weight: 600;
 `;
 
 const TOGGLE_LIKE_MUTATION = gql`
@@ -172,26 +155,12 @@ const Photo = ({
           </div>
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
-        <Comments>
-          <Comment>
-            <FatText>{user.username}</FatText>
-            <CommentCaption>{caption}</CommentCaption>
-          </Comment>
-        </Comments>
-        <CommentCount>
-          {commentNumber > 0
-            ? commentNumber === 1
-              ? "1 comment"
-              : `${commentNumber} comments`
-            : null}
-        </CommentCount>
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            <Avatar url={comment.user.avatar} lg />
-            <FatText>{comment.user.username}</FatText>
-            <span>{comment.payload}</span>
-          </div>
-        ))}
+        <Comments
+          author={user.username}
+          caption={caption}
+          comments={comments}
+          commentNumber={commentNumber}
+        />
       </PhotoData>
     </PhotoContainer>
   );
