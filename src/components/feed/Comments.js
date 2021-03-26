@@ -90,18 +90,24 @@ const Comments = ({ photoId, author, caption, comments, commentNumber }) => {
   );
 
   const onSubmitValid = async ({ payload }) => {
-    if (loading) {
+    try {
+      if (loading) {
+        return;
+      }
+
+      await createCommentMutation({
+        variables: {
+          photoId,
+          payload,
+        },
+      });
+
+      setValue("payload", "");
+    } catch (error) {
+      console.log("Error @onSubmitValid_Comments: ", error.message);
+
       return;
     }
-
-    await createCommentMutation({
-      variables: {
-        photoId,
-        payload,
-      },
-    });
-
-    setValue("payload", "");
   };
 
   return (
@@ -117,8 +123,11 @@ const Comments = ({ photoId, author, caption, comments, commentNumber }) => {
       {comments?.map((comment) => (
         <Comment
           key={comment.id}
+          id={comment.id}
           author={comment.user.username}
           payload={comment.payload}
+          isMine={comment.isMine}
+          photoId={photoId}
         />
       ))}
       <div>
