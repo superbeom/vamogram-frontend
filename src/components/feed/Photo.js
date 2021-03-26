@@ -90,6 +90,7 @@ const Photo = ({
 
     if (ok) {
       const fragmentId = `Photo:${id}`;
+
       cache.modify({
         id: fragmentId,
         fields: {
