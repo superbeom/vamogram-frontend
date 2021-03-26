@@ -47,7 +47,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
   }
 `;
 
-export default () => {
+const SignUp = () => {
   const history = useHistory();
   const {
     register,
@@ -79,9 +79,12 @@ export default () => {
     });
   };
 
-  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
-    onCompleted,
-  });
+  const [createAccountMutation, { loading }] = useMutation(
+    CREATE_ACCOUNT_MUTATION,
+    {
+      onCompleted,
+    }
+  );
 
   const onSubmitValid = async ({
     firstName,
@@ -94,7 +97,7 @@ export default () => {
       return;
     }
 
-    createAccount({
+    return createAccountMutation({
       variables: {
         firstName,
         lastName,
@@ -179,3 +182,5 @@ export default () => {
     </AuthLayout>
   );
 };
+
+export default SignUp;

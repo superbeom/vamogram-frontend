@@ -20,10 +20,12 @@ const StyledSeparator = styled.div`
   }
 `;
 
-export default () => (
+const Separator = () => (
   <StyledSeparator>
     <div />
     <span>or</span>
     <div />
   </StyledSeparator>
 );
+
+export default Separator;

@@ -7,5 +7,7 @@ const StyledFormError = styled.span`
   margin: 5px 0px 10px 0px;
 `;
 
-export default ({ message }) =>
+const FormError = ({ message }) =>
   message ? <StyledFormError>{message}</StyledFormError> : null;
+
+export default FormError;

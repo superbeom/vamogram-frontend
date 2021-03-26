@@ -13,9 +13,11 @@ const Container = styled(BaseBox)`
 `;
 
 // cta = call to action = 클릭 유도 문구
-export default ({ cta, link, linkText }) => (
+const BottomBox = ({ cta, link, linkText }) => (
   <Container>
     <span>{cta}</span>
     <Link to={link}>{linkText}</Link>
   </Container>
 );
+
+export default BottomBox;

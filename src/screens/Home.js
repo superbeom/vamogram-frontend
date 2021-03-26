@@ -1,10 +1,47 @@
-import { logUserOut } from "../apollo";
+import { gql, useQuery } from "@apollo/client";
+import Photo from "../components/feed/Photo";
+import PageTitle from "../components/PageTitle";
 
-export default () => {
+const FEED_QUERY = gql`
+  query seeFeed {
+    seeFeed {
+      id
+      user {
+        username
+        avatar
+      }
+      file
+      caption
+      likes
+      comments {
+        id
+        user {
+          username
+          avatar
+        }
+        payload
+        isMine
+        createdAt
+      }
+      commentNumber
+      isMine
+      isLiked
+      createdAt
+    }
+  }
+`;
+
+const Home = () => {
+  const { data } = useQuery(FEED_QUERY);
+
   return (
     <div>
-      <h1>Home</h1>
-      <button onClick={() => logUserOut()}>Logout</button>
+      <PageTitle title={"Home"} />
+      {data?.seeFeed?.map((photo) => (
+        <Photo key={photo.id} {...photo} />
+      ))}
     </div>
   );
 };
+
+export default Home;

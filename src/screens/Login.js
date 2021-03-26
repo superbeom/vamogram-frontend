@@ -40,7 +40,7 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default () => {
+const Login = () => {
   const location = useLocation();
   const {
     register,
@@ -71,7 +71,7 @@ export default () => {
     }
   };
 
-  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+  const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted,
   });
 
@@ -79,7 +79,7 @@ export default () => {
     if (loading) {
       return;
     } else {
-      login({
+      loginMutation({
         variables: {
           username,
           password,
@@ -146,3 +146,5 @@ export default () => {
     </AuthLayout>
   );
 };
+
+export default Login;
