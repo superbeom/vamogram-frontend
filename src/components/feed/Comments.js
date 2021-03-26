@@ -52,11 +52,27 @@ const Comments = ({ photoId, author, caption, comments, commentNumber }) => {
         createdAt: `${Date.now()}`,
       };
 
+      const newCacheComment = cache.writeFragment({
+        fragment: gql`
+          fragment BSName on Comment {
+            id
+            payload
+            user {
+              username
+              avatar
+            }
+            isMine
+            createdAt
+          }
+        `,
+        data: newComment,
+      });
+
       cache.modify({
         id: fragmentId,
         fields: {
           comments(cacheComments) {
-            return [...cacheComments, newComment];
+            return [...cacheComments, newCacheComment];
           },
           commentNumber(cacheCommentNumber) {
             return cacheCommentNumber + 1;
