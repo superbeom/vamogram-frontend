@@ -97,7 +97,7 @@ const SignUp = () => {
       return;
     }
 
-    createAccountMutation({
+    return createAccountMutation({
       variables: {
         firstName,
         lastName,
