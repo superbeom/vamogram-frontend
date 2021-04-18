@@ -112,29 +112,83 @@ const Profile = () => {
     },
   });
 
+  const updateFollowUser = (cache, result) => {
+    const {
+      data: {
+        followUser: { ok },
+      },
+    } = result;
+
+    if (!ok) {
+      return;
+    }
+
+    cache.modify({
+      id: `User:${username}`,
+      fields: {
+        isFollowing(prev) {
+          return true;
+        },
+        totalFollowers(prev) {
+          return prev + 1;
+        },
+      },
+    });
+
+    cache.modify({
+      id: `User:${userData?.username}`,
+      fields: {
+        totalFollowing(prev) {
+          return prev + 1;
+        },
+      },
+    });
+  };
+
+  const updateUnfollowUser = (cache, result) => {
+    const {
+      data: {
+        unfollowUser: { ok },
+      },
+    } = result;
+
+    if (!ok) {
+      return;
+    }
+
+    cache.modify({
+      id: `User:${username}`,
+      fields: {
+        isFollowing(prev) {
+          return false;
+        },
+        totalFollowers(prev) {
+          return prev - 1;
+        },
+      },
+    });
+
+    cache.modify({
+      id: `User:${userData?.username}`,
+      fields: {
+        totalFollowing(prev) {
+          return prev - 1;
+        },
+      },
+    });
+  };
+
   const [followUserMutation] = useMutation(FOLLOW_USER_MUTATION, {
     variables: {
       username,
     },
-    refetchQueries: [
-      { query: SEE_PROFILE_QUERY, variables: { username } },
-      {
-        query: SEE_PROFILE_QUERY,
-        variables: { username: userData?.me?.username },
-      },
-    ],
+    update: updateFollowUser,
   });
   const [unfollowUserMutation] = useMutation(UNFOLLOW_USER_MUTATION, {
     variables: {
       username,
     },
-    refetchQueries: [
-      { query: SEE_PROFILE_QUERY, variables: { username } },
-      {
-        query: SEE_PROFILE_QUERY,
-        variables: { username: userData?.me?.username },
-      },
-    ],
+    update: updateUnfollowUser,
   });
 
   const getButton = (seeProfile) => {
