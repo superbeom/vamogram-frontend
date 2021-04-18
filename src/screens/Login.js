@@ -1,14 +1,18 @@
 import { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookSquare,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { useForm } from "react-hook-form";
+
 import { logUserIn } from "../apollo";
 import routes from "../routes";
+import { LOGIN_MUTATION } from "../schema/authMutations";
+
 import AuthLayout from "../components/auth/AuthLayout";
 import FormBox from "../components/auth/FormBox";
 import BottomBox from "../components/auth/BottomBox";
@@ -16,7 +20,6 @@ import Button from "../components/auth/Button";
 import Separator from "../components/auth/Separator";
 import Input from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
-import { useForm } from "react-hook-form";
 import FormError from "../components/auth/FormError";
 
 const FacebookLogin = styled.div`
@@ -29,16 +32,6 @@ const FacebookLogin = styled.div`
 
 const Notification = styled.div`
   color: #2ecc71;
-`;
-
-const LOGIN_MUTATION = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      ok
-      token
-      error
-    }
-  }
 `;
 
 const Login = () => {

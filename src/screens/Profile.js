@@ -1,10 +1,18 @@
 import { useParams } from "react-router";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { PHOTO_FRAGMENT } from "../fragments";
+
+import {
+  SEE_PROFILE_QUERY,
+  FOLLOW_USER_MUTATION,
+  UNFOLLOW_USER_MUTATION,
+} from "../schema/mutations";
+
 import { FatText } from "../components/shared";
+import Button from "../components/auth/Button";
+import PageTitle from "../components/PageTitle";
 
 const Header = styled.div`
   display: flex;
@@ -26,6 +34,7 @@ const Username = styled.h3`
 `;
 
 const Row = styled.div`
+  display: flex;
   margin-bottom: 20px;
   font-size: 16px;
 `;
@@ -86,41 +95,43 @@ const Icon = styled.span`
   }
 `;
 
-const SEE_PROFILE_QUERY = gql`
-  query seeProfile($username: String!) {
-    seeProfile(username: $username) {
-      firstName
-      lastName
-      username
-      bio
-      avatar
-      photos {
-        ...PhotoFragment
-      }
-      totalFollowers
-      totalFollowing
-      isMe
-      isFollowing
-    }
-  }
-  ${PHOTO_FRAGMENT}
+const ProfileBtn = styled(Button).attrs({
+  as: "span",
+})`
+  margin-top: 0;
+  margin-left: 10px;
 `;
 
 const Profile = () => {
   const { username } = useParams();
-  const { data } = useQuery(SEE_PROFILE_QUERY, {
+  const { data, loading } = useQuery(SEE_PROFILE_QUERY, {
     variables: {
       username,
     },
   });
 
+  const getButton = (seeProfile) => {
+    const { isMe, isFollowing } = seeProfile;
+
+    if (isMe) return <ProfileBtn>Edit Profile</ProfileBtn>;
+    else if (isFollowing) return <ProfileBtn>Unfollow</ProfileBtn>;
+    else return <ProfileBtn>follow</ProfileBtn>;
+  };
+
   return (
     <div>
+      <PageTitle
+        title={
+          loading ? "Loading..." : `${data?.seeProfile?.username}'s Profile`
+        }
+      />
+
       <Header>
         <Avatar src={data?.seeProfile?.avatar} />
         <Column>
           <Row>
             <Username>{data?.seeProfile?.username}</Username>
+            {data?.seeProfile && getButton(data.seeProfile)}
           </Row>
           <Row>
             <List>
