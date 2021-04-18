@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,6 +43,7 @@ const LOGIN_MUTATION = gql`
 
 const Login = () => {
   const location = useLocation();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -91,6 +93,10 @@ const Login = () => {
   const clearLoginError = () => {
     clearErrors("result");
   };
+
+  useEffect(() => {
+    history.replace();
+  }, []);
 
   return (
     <AuthLayout>
