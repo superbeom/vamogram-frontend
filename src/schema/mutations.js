@@ -31,8 +31,8 @@ export const FOLLOW_USER_MUTATION = gql`
 `;
 
 export const UNFOLLOW_USER_MUTATION = gql`
-  mutation ubfollowUser($username: String!) {
-    ubfollowUser(username: $username) {
+  mutation unfollowUser($username: String!) {
+    unfollowUser(username: $username) {
       ok
     }
   }
