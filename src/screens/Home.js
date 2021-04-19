@@ -1,35 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+
+import { FEED_QUERY } from "../schema/authMutations";
+
 import Photo from "../components/feed/Photo";
 import PageTitle from "../components/PageTitle";
-
-const FEED_QUERY = gql`
-  query seeFeed {
-    seeFeed {
-      id
-      user {
-        username
-        avatar
-      }
-      file
-      caption
-      likes
-      comments {
-        id
-        user {
-          username
-          avatar
-        }
-        payload
-        isMine
-        createdAt
-      }
-      commentNumber
-      isMine
-      isLiked
-      createdAt
-    }
-  }
-`;
 
 const Home = () => {
   const { data } = useQuery(FEED_QUERY);

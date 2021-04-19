@@ -1,9 +1,13 @@
 import { useHistory } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { useForm } from "react-hook-form";
+
 import routes from "../routes";
+import { CREATE_ACCOUNT_MUTATION } from "../schema/authMutations";
+
 import { FatLink } from "../components/shared";
 import AuthLayout from "../components/auth/AuthLayout";
 import FormBox from "../components/auth/FormBox";
@@ -12,7 +16,6 @@ import Button from "../components/auth/Button";
 import Input from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
 import FormError from "../components/auth/FormError";
-import { useForm } from "react-hook-form";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -24,27 +27,6 @@ const Subtitle = styled(FatLink)`
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
-`;
-
-const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccount(
-    $firstName: String!
-    $lastName: String
-    $username: String!
-    $email: String!
-    $password: String!
-  ) {
-    createAccount(
-      firstName: $firstName
-      lastName: $lastName
-      username: $username
-      email: $email
-      password: $password
-    ) {
-      ok
-      error
-    }
-  }
 `;
 
 const SignUp = () => {
