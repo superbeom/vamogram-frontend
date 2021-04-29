@@ -33,7 +33,10 @@ export const logUserOut = () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri:
+    process.env.NODE_ENV === "production"
+      ? process.env.BACKEND_URI
+      : "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
