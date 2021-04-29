@@ -89,7 +89,7 @@ const Login = () => {
 
   useEffect(() => {
     history.replace();
-  }, []);
+  }, [history]);
 
   return (
     <AuthLayout>
