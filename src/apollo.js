@@ -35,7 +35,7 @@ export const logUserOut = () => {
 const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? process.env.BACKEND_URI
+      ? process.env.REACT_APP_BACKEND_URI
       : "http://localhost:4000/graphql",
 });
 
